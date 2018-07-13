@@ -35,7 +35,9 @@ namespace AlgorithmDemo
         {
             int[] nums = new int[] { 2, 7, 11, 15 };
             int target = 9;
-            int[] result = TwoSumByTwoPointers(nums, target);
+            int low = 0;
+            int high = nums.Length;
+            int[] result = TwoSumByTwoPointers(nums, target, low, high);
             Console.WriteLine(string.Format("[{0},{1}]", result[0], result[1]));
             Console.ReadLine();
         }
@@ -48,7 +50,7 @@ namespace AlgorithmDemo
         /// <returns></returns>
         private int[] TowSumByHashtable(int[] nums, int target)
         {
-            
+
             int[] result = new int[2];
             if (nums.Length < 2 || nums == null)
                 return result;
@@ -79,26 +81,25 @@ namespace AlgorithmDemo
         /// <param name="nums"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        private int[] TwoSumByTwoPointers(int[] nums, int target)
+        private int[] TwoSumByTwoPointers(int[] nums, int target, int low, int high)
         {
             if (nums.Length < 2 || nums == null)
-                return null ;
-            int start = 0;
-            int end = nums.Length;
+                return null;
+
             int[] sortedNums = new int[nums.Length];
             nums.CopyTo(sortedNums, 0);
             //Quicksort
             Array.Sort(sortedNums);
             int max = sortedNums[nums.Length - 1];
-            
+
             //Find the two numbers
-            while (start < end)
+            while (low < high)
             {
-                while (sortedNums[start] + sortedNums[--end] > target) ;
-                if (sortedNums[start] + sortedNums[end] == target)
+                while (sortedNums[low] + sortedNums[--high] > target) ;
+                if (sortedNums[low] + sortedNums[high] == target)
                     break;
-                while (sortedNums[++start] + sortedNums[end] < target) ;
-                if (sortedNums[start] + sortedNums[end] == target)
+                while (sortedNums[++low] + sortedNums[high] < target) ;
+                if (sortedNums[low] + sortedNums[high] == target)
                     break;
             }
             int[] result = new int[2];
@@ -106,7 +107,7 @@ namespace AlgorithmDemo
             int index = 0;
             for (int i = 0; i < nums.Length; i++)
             {
-                if (nums[i] == sortedNums[start] || nums[i] == sortedNums[end])
+                if (nums[i] == sortedNums[low] || nums[i] == sortedNums[high])
                     result[index++] = i;
 
 
@@ -133,7 +134,7 @@ namespace AlgorithmDemo
         {
             int[] nums = new int[] { -1, 0, 1, 2, -1, -4 };
             int target = 0;
-            List<int[]> result = ThreeSum(nums, target);
+            List<int[]> result = ThreeSum(nums, target, 0);
             foreach (var item in result)
             {
                 Console.WriteLine(string.Format("[{0},{1},{2}]", item[0], item[1], item[2]));
@@ -141,54 +142,81 @@ namespace AlgorithmDemo
             Console.ReadLine();
         }
 
-        private List<int[]> ThreeSum(int[] nums, int target)
+        private List<int[]> ThreeSum(int[] nums, int target, int startIndex)
         {
             List<int[]> result = new List<int[]>();
             int len = nums.Length;
             if (nums == null || len < 3)
                 return result;
-            int max = nums[len - 1];
-            if (3 * nums[0] > target || 3 * max < target)
-                return result;
             //QuickOrder
             Array.Sort(nums);
-           
-            //第一层循环，先确定第一个数（第一个数一定是最小的，要保证和为0，那么至少有一个是负数，所以left必须是负的
 
+            int max = nums[len - 1];
+            if (3 * nums[startIndex ] > target || 3 * max < target)
+                return result;
+
+            //第一层循环，先确定第一个数
             int mid;
-            int right = nums.Length - 1;
-            for (int left = 0; left < nums.Length && nums[left] <= 0; left++)
+            int right ;
+            int newTarget;
+            int sum;
+            //for (int left = startIndex; left < nums.Length - 2 && nums[left] <= 0; left++)（第一个数一定是最小的，如果target为0，那么至少有一个是负数，所以left必须是负的）
+            for (int left = startIndex; left < nums.Length - 2; left++)
             {
-                //为了防止出现重复的结果，如果一个left指向的数是之前判断过的，跳过，mid和right也是
+                mid = left + 1;
+                right = nums.Length - 1;
+                newTarget = target - nums[left];
+                //为了防止出现重复的结果，如果一个left指向的数是之前判断过的，跳过
                 if (left > 0 && nums[left] == nums[left - 1])
                     continue;
+                #region 三数优化
                 //太小
                 if (nums[left] + 2 * max < target)
                     continue;
-                mid = left + 1;
-                int newTarget = target - nums[left];
+                //太大
+                if (3 * nums[left] > target)
+                    break;
+                else if (3 * nums[left] == target)
+                {
+                    //  is the boundary
+                    if (left +1 < right && nums[left + 2] == nums[left])
+                        result.Add(new int[] { nums[left], nums[left], nums[left] });
+                    break;
+
+                }
+                #endregion
+                #region 两数优化
+                if (2 * nums[mid] > newTarget || 2 * nums[right] < newTarget)
+                    return result;
+                if(2*nums [mid]== newTarget)
+                {
+                    if (mid < right && nums[mid + 1] == nums[mid])
+                        result.Add(new int[] { nums[mid], nums[mid], nums[mid] });
+                    break;
+                }
+                #endregion
                 //mid和right分别从前后逼近真值
                 while (mid < right)
                 {
-                    if (nums[mid] + nums[right] > newTarget)
-                        right--;
-                    else if (nums[mid] + nums[right] < newTarget)
-                        mid++;
-                    else
+
+                    sum = nums[mid] + nums[right];
+                    if (sum == newTarget)
                     {
                         result.Add(new int[] { nums[left], nums[mid], nums[right] });
                         //跳过right和mid的重复匹配
                         int temMid = nums[mid];
                         int temRight = nums[right];
-                        while (mid < right && nums[++mid] == temMid) ;
-                        while (mid < right && nums[--right] == temRight) ;
+                        while (++mid < right && nums[mid] == temMid) ;
+                        while (mid < --right && nums[right] == temRight) ;
                     }
+                    else if (sum < newTarget)
+                    { mid++; }
 
+                    else
+                    { right--; }
                 }
             }
             return result;
-
-
         }
         #endregion
 
@@ -272,33 +300,57 @@ namespace AlgorithmDemo
         //B太大，退出：（如果3*B> target） 
         //B太小，跳过：（B+3*MAx<target） ……
 
-        private List<int[]> FourSum(int[] nums, int target)
+        public void TestFourSum()
+        {
+            int[] nums = new int[] { 1, 0, -1, 0, -2, 2 };
+            int target = 0;
+            List<int[]> result = FourSum(nums, target, 0);
+            foreach (var item in result)
+            {
+                Console.WriteLine(string.Format("[{0},{1},{2},{3}]", item[0], item[1], item[2], item[3]));
+            }
+            Console.ReadLine();
+        }
+
+        private List<int[]> FourSum(int[] nums, int target, int startIndex)
         {
             List<int[]> result = new List<int[]>();
             int len = nums.Length;
-            if (len < 4 || nums == null)
+            if (nums == null || len < 4)
                 return result;
-           
-            //排序
+            //QuickOrder
             Array.Sort(nums);
+
             int max = nums[len - 1];
-            int min = nums[0];
-            if (4 * min > target || 4 * max < target)
+            if (4 * nums[0] > target || 4 * max < target)
                 return result;
-          
-            int b = 0;
-            int c = 0;
-            int d = nums.Length - 1;
-            
-            for (int a = 0; a < nums.Length -3; a++)
+            int threeStartIndex = 0;
+            int newTarget = 0;
+            for (int a = startIndex; a < nums.Length - 3; a++)
             {
-                if (a > 0 && nums [a] == nums[a - 1])// avoid duplicate
+                threeStartIndex = a + 1;
+                newTarget = target - nums[a];
+                if (a > 0 && nums[a] == nums[a - 1])// avoid duplicate
                     continue;
                 if (a + 3 * max < target)// a is too small
                     continue;
+                if (4 * nums[a] > target)// a is too big
+                    break;
+                if (4 * nums[a] == target)//a is the boundary
+                {
+                    if (a + 3 < len && nums[a + 3] == nums[a])
+                        result.Add(new int[] { nums[a], nums[a], nums[a], nums[a] });
+                    break;
+
+                }
                 //转换为3SUM问题
-                b = a + 1;
+                List<int[]> threeSumResult = ThreeSum(nums, newTarget, threeStartIndex);
+                foreach (var item in threeSumResult)
+                {
+                    result.Add(new int[] { nums[a], item[0], item[1], item[2] });
+                }
             }
+            return result;
 
 
         }

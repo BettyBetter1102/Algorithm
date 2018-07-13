@@ -16,3 +16,6 @@ E:\Learn\Test\Algorithm\Algorithm\obj\Debug\AlgorithmDemo.pdb
 E:\Learn\Algorithm\Algorithm\bin\Debug\AlgorithmDemo.exe.config
 E:\Learn\Algorithm\Algorithm\obj\Debug\AlgorithmDemo.exe
 E:\Learn\Algorithm\Algorithm\obj\Debug\AlgorithmDemo.pdb
+E:\Learn\Test\Algorithm\Algorithm\bin\Debug\AlgorithmDemo.exe
+E:\Learn\Test\Algorithm\Algorithm\bin\Debug\AlgorithmDemo.pdb
+E:\Learn\Test\Algorithm\Algorithm\obj\Debug\AlgorithmDemo.csprojResolveAssemblyReference.cache

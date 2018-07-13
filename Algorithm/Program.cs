@@ -18,8 +18,9 @@ namespace AlgorithmDemo
             //sta.TestStringAdd();
             TwoPointers tp = new TwoPointers();
             //tp.TestTwoSumByHash();
-            //tp.TestThreeSum();
-            tp.TestThreeSumClosest();
+            tp.TestThreeSum();
+            //tp.TestThreeSumClosest();
+            //tp.TestFourSum();
 
         }
     }
