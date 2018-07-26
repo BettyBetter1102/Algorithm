@@ -11,15 +11,15 @@ namespace AlgorithmDemo
         static void Main(string[] args)
         {
 
-            #region
+            #region RuleTag转换
             //RuleTagConvert convert = new AlgorithmDemo.RuleTagConvert();
             //convert.ConstructMethod ("");
             #endregion
-            #region
-            ConstructGitAddCommand commnd = new AlgorithmDemo.ConstructGitAddCommand();
-            commnd.TestConstructGitAddCommand();
+            #region 构造Command命令
+            //ConstructGitAddCommand commnd = new AlgorithmDemo.ConstructGitAddCommand();
+            //commnd.TestConstructGitAddCommand();
             #endregion
-            #region
+            #region 测试表参数
             //TableParametersTest test = new TableParametersTest();
             //int partnerID = 108;
 
@@ -37,6 +37,12 @@ namespace AlgorithmDemo
 
             //DateTime now = DateTime.Now;
             //test.FeedStatisticListUpdateInsert(partnerID, APPID, list, now);
+            #endregion
+            #region 动态规划
+            DynamicProgramming dp = new DynamicProgramming("ABCBDAB", "BDCABA");
+            dp.PrintLCSTable();
+            dp.PrintLCSSet();
+
             #endregion
 
         }
