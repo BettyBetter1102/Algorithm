@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileStatus.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="FeedDailyCount.cs" />
