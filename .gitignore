@@ -1,87 +1,60 @@
-# Object files
-
-*.o
-
-*.ko
-
-*.obj
-
-*.elf
-
-
-
-# Precompiled Headers
-
-*.gch
-
-*.pch
-
-
-
-# Libraries
-
-*.lib
-
-*.a
-
-*.la
-
-*.lo
-
-
-
-# Shared objects (inc. Windows DLLs)
-
-*.dll
-
-*.so
-
-*.so.*
-
-*.dylib
-
-
-
-# Executables
-
-*.exe
-
-*.out
-
-*.app
-
-*.i*86
-
-*.x86_64
-
-*.hex
-
-
-
-# Debug files
-
-*.dSYM/
-
-*.su
-
-
-
 _ReSharper*
-[Bb]in/
-obj/
-Properties/
-packages/
-
+[Bb]in
+obj
+objd
+out/
+tmp/
 App_Data
 *.user
 *.sln.cache
 *.userosscache
 *.suo
-*.exe
-*.pdb
 TestResults
+[Tt]humbs.db
+buildd.log
+buildd.evt
+buildd.dbb
+buildd.prf
+buildd.trc
+buildd.err
+build.log
+build.evt
+build.prf
+build.dbb
+build.trc
+build.err
 *.log
 *.bak
-*.model
-.vs/
+OACRTemp/
+build_logs/
+lock
+/public/inc/bldver.*
+/public/inc/sources.ver
+/data
+*.projhash*
+*.slnhash*
+# quickbuild.exe
+/target/distrib/*
+/VersionGeneratingLogs/
+QLogs
+QLocal
+QTestLogs
+pingme.txt
 
+# IISExpress
+*/.vs/config/applicationhost.config
+
+# bad tlb/chm generators in nmake tree
+*.tlb
+*.chm
+
+# silverlight
+ClientBin/
+
+# azure
+*.build.csdef
+csx/
+
+/packages/
+/.vs/config/applicationhost.config
+/RecommendAPIInt/Profiles/*
