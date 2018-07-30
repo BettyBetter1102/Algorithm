@@ -53,17 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BreadthFirstSearch.cs" />
-    <Compile Include="DatacleaningHelper.cs" />
-    <Compile Include="ExcelHelper.cs" />
-    <Compile Include="ConstructGitAddCommand.cs" />
     <Compile Include="DynamicProgramming.cs" />
-    <Compile Include="RuleTagConvert.cs" />
     <Compile Include="DepthFirstSearch.cs" />
     <Compile Include="DivideAndConquer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringAdd.cs" />
-    <Compile Include="TableParametersTest.cs" />
     <Compile Include="TwoPointers.cs" />
   </ItemGroup>
   <ItemGroup>
